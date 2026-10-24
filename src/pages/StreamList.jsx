@@ -2,12 +2,15 @@ import { useState } from "react";
 
 function StreamList() {
   const [movie, setMovie] = useState("");
+  const [movies, setMovies] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(movie);
+    const title = movie.trim();
+    if (!title) return;
 
+    setMovies((currentMovies) => [...currentMovies, title]);
     setMovie("");
   };
 
@@ -26,6 +29,13 @@ function StreamList() {
 
         <button type="submit">Add Movie</button>
       </form>
+
+      <h2>My Movie List</h2>
+      <ul>
+        {movies.map((title, index) => (
+          <li key={`${title}-${index}`}>{title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
